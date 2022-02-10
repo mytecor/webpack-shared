@@ -1,10 +1,8 @@
 import { join } from 'path'
 import wrapPlugin from './wrapPlugin.js'
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
-const { default: refresh } = await import('react-refresh-typescript').catch((e) => ({
-	default: null
-}))
+import refresh from 'react-refresh-typescript'
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
 export const typescript = wrapPlugin(({ configFile = 'tsconfig.json', DEV, PROD, root }) => {
 	configFile = join(root, configFile)
@@ -28,7 +26,6 @@ export const typescript = wrapPlugin(({ configFile = 'tsconfig.json', DEV, PROD,
 			transpileOnly: PROD,
 			getCustomTransformers:
 				DEV &&
-				refresh &&
 				(() => ({
 					before: [refresh()]
 				}))
