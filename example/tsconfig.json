@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"module": "ESNext",
+		"target": "ES2020",
+		"moduleResolution": "node",
+		"allowJs": true,
+		"strict": true,
+		"sourceMap": true,
+		"outDir": "./dist",
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"baseUrl": "./"
+	},
+	"exclude": ["node_modules", "node_modules.tmp"]
+}
