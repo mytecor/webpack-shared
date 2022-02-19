@@ -1,4 +1,22 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background: #333;
 	color: #fff;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 12px;
+	margin: 0;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.logo {
+	min-width: 1em;
+	width: 1em;
 }
