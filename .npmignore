@@ -1,5 +1,6 @@
 yarn.lock
 .gitattributes
-example
-src
-node_modules*
+src/
+docs/
+example/
+node_modules/
