@@ -8,7 +8,20 @@ export const css = wrapPlugin(({ PROD }) => {
 				{
 					test: /\.css$/,
 					exclude: /node_modules/,
-					use: [PROD ? CssExtract.loader : 'style-loader', 'css-loader']
+					use: [
+						PROD ? CssExtract.loader : 'style-loader',
+						{
+							loader: 'css-loader',
+							options: {
+								importLoaders: 1,
+								modules: {
+									localIdentName: '[local]-[hash:base64:3]',
+									namedExport: true,
+									exportLocalsConvention: (name: string) => '$' + name.replace(/-/g, '_')
+								}
+							}
+						}
+					]
 				}
 			]
 		},
