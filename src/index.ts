@@ -15,8 +15,8 @@ export default function webpackShared(path: string, handlers: IPlugin[]) {
 	return ({ WEBPACK_SERVE }: { WEBPACK_SERVE: boolean }) => {
 		console.log('\nSome magic (ﾉ>ω<)ﾉ━━━★\x1b[34m･:*:☆ﾟ.*･｡ﾟ\x1b[0m')
 
-		const DEV = WEBPACK_SERVE
-		const PROD = !DEV
+		const PROD = !WEBPACK_SERVE
+		const DEV = !PROD
 
 		const options = {
 			root,

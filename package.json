@@ -1,6 +1,6 @@
 {
 	"name": "webpack-shared",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"main": "dist/index.js",
 	"author": "Vlad Afonin <me@myt.su>",
 	"license": "MIT",
