@@ -1,16 +1,17 @@
 {
 	"compilerOptions": {
-		"module": "ESNext",
 		"target": "ES2020",
-		"moduleResolution": "node",
 		"allowJs": true,
 		"strict": true,
-		"outDir": "./dist",
+		"skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
-		"rootDir": "./src",
 		"declaration": true,
-		"skipLibCheck": true
+
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"baseUrl": "./",
+		"rootDir": "./",
+		"outDir": "../dist"
 	},
-	"include": ["src"],
 	"exclude": ["node_modules"]
 }

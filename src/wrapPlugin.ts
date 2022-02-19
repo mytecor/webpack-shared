@@ -6,12 +6,22 @@ export interface IConfig {
 	root: string
 }
 
-export interface IPlugin<Options = Record<string, any>> {
-	(config: IConfig & Options): Omit<Configuration, 'plugins'> & {
-		plugins?: (((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | boolean)[]
-	}
+export type ConfigPart = Omit<Configuration, 'plugins'> & {
+	plugins?: (((this: Compiler, compiler: Compiler) => void) | WebpackPluginInstance | boolean)[]
 }
 
-export default function wrapPlugin<Options extends Record<string, any>>(plugin: IPlugin<Options>) {
+export interface IPlugin<Options = IOptions & Record<string, any>> {
+	(config: IConfig & Options): ConfigPart
+}
+
+export default function wrapPlugin<Options extends IOptions & Record<string, any>>(
+	plugin: IPlugin<Options>
+) {
 	return (options = {} as Options) => (config: IConfig) => plugin({ ...options, ...config })
+}
+
+export interface IOptions {
+	root: string
+	DEV: boolean
+	PROD: boolean
 }
