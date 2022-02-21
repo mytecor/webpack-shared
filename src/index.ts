@@ -58,11 +58,12 @@ export function defaultConfig({ root, DEV, PROD }: IOptions): ConfigPart {
 		stats: 'errors-warnings',
 		optimization: {
 			splitChunks: PROD && {
+				minSize: 0,
 				cacheGroups: {
 					vendors: {
 						test: /[\\/]node_modules[\\/]/,
 						name(module: any) {
-							return module.identifier().replace(/.*node_modules[^\/]*[\/](.+?)[\/].*/, '$1')
+							return module.context.match(/node_modules[\\/][^\/]*/)[0]
 						},
 						chunks: 'all'
 					}
