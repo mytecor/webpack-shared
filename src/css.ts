@@ -25,6 +25,11 @@ export const css = wrapPlugin(({ PROD }) => {
 				}
 			]
 		},
-		plugins: [PROD && new CssExtract()]
+		plugins: [
+			PROD &&
+				new CssExtract({
+					filename: '[name].[contenthash].css'
+				})
+		]
 	}
 })
