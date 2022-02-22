@@ -61,7 +61,7 @@ export function defaultConfig({ root, DEV, PROD }: IOptions): ConfigPart {
 					vendors: {
 						test: /[\\/]node_modules[\\/]/,
 						name(module: any) {
-							return module.context.match(/node_modules[\\/][^\/]*/)[0]
+							return module.context.match(/node_modules[\\/]([^\/]*)/)[1]
 						},
 						chunks: 'all'
 					}
