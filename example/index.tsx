@@ -1,5 +1,5 @@
 import { useReducer } from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 import Logo from './webpack_logo.svg'
 import Button from 'components/Button'
@@ -23,4 +23,4 @@ function App() {
 	)
 }
 
-render(<App />, document.getElementById('root'))
+createRoot(document.getElementById('root')!).render(<App />)
