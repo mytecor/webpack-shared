@@ -7,7 +7,6 @@ export const css = plugin(({ PROD }) => {
 			rules: [
 				{
 					test: /\.css$/,
-					exclude: /node_modules/,
 					use: [
 						PROD ? CssExtract.loader : 'style-loader',
 						{
