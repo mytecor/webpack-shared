@@ -1,7 +1,7 @@
-import wrapPlugin from './wrapPlugin.js'
+import { plugin } from './plugin.js'
 import CssExtract from 'mini-css-extract-plugin'
 
-export const css = wrapPlugin(({ PROD }) => {
+export const css = plugin(({ PROD }) => {
 	return {
 		module: {
 			rules: [
@@ -17,7 +17,8 @@ export const css = wrapPlugin(({ PROD }) => {
 								modules: {
 									localIdentName: '[local]-[hash:base64:3]',
 									namedExport: true,
-									exportLocalsConvention: (name: string) => '$' + name.replace(/-/g, '_')
+									exportLocalsConvention: (name: string) =>
+										'$' + name.replace(/-/g, '_')
 								}
 							}
 						}

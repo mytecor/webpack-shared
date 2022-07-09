@@ -1,16 +1,27 @@
 import { join } from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import webpackShared, { css, react, typescript, svgr, devServer } from 'webpack-shared'
-import wrapPlugin from 'webpack-shared/wrapPlugin'
+import {
+	shared,
+	base,
+	css,
+	react,
+	typescript,
+	svgr,
+	devServer,
+	plugin
+} from 'webpack-shared'
 
 // Custom part
 function custom({ root }) {
-	return { entry: './example/index.tsx', output: { path: join(root, '../docs') } }
+	return {
+		entry: './example/index.tsx',
+		output: { path: join(root, './dist') }
+	}
 }
 
 // Custom plugin
-const html = wrapPlugin(({ template, root }) => {
+const html = plugin(({ template, root }) => {
 	return {
 		plugins: [
 			new HtmlWebpackPlugin({
@@ -22,7 +33,9 @@ const html = wrapPlugin(({ template, root }) => {
 })
 
 // Config
-export default webpackShared(import.meta.url, [
+export default shared(import.meta.url, [
+	base(),
+
 	css(),
 	devServer(),
 	react(),

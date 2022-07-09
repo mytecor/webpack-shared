@@ -1,6 +1,6 @@
-import wrapPlugin from './wrapPlugin.js'
+import { plugin } from './plugin.js'
 
-export const svgr = wrapPlugin(() => {
+export const svgr = plugin(() => {
 	return {
 		module: {
 			rules: [

@@ -1,6 +1,6 @@
-import wrapPlugin from './wrapPlugin.js'
+import { plugin } from './plugin.js'
 
-export const devServer = wrapPlugin(({ port = 80 }) => {
+export const devServer = plugin<Options | void>(({ port = 80 }) => {
 	return {
 		devServer: {
 			hot: true,
@@ -15,3 +15,7 @@ export const devServer = wrapPlugin(({ port = 80 }) => {
 		devtool: 'source-map'
 	}
 })
+
+interface Options {
+	port?: number
+}

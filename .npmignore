@@ -1,6 +1,7 @@
-yarn.lock
+pnpm-lock.yaml
 .gitattributes
 src/
-docs/
 example/
 node_modules/
+.DS_Store
+tsconfig.json

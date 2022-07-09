@@ -1,15 +1,18 @@
-import { dirname, join } from 'path'
+import { dirname } from 'path'
 import { mergeAndConcat } from 'merge-anything'
 import { Configuration } from 'webpack'
-import { ConfigPart, IOptions, IPlugin } from './wrapPlugin.js'
 
-export { css } from './css.js'
-export { svgr } from './svgr.js'
-export { react } from './react.js'
-export { typescript } from './typescript.js'
-export { devServer } from './dev-server.js'
+import { ConfigPart, Plugin } from './plugin.js'
 
-export default function webpackShared(path: string, handlers: IPlugin[]) {
+export * from './plugin.js'
+export * from './base.js'
+export * from './css.js'
+export * from './svgr.js'
+export * from './react.js'
+export * from './typescript.js'
+export * from './dev-server.js'
+
+export function shared(path: string, handlers: [Plugin, ...Plugin[]]) {
 	const root = dirname(new URL(path).pathname)
 
 	return ({ WEBPACK_SERVE }: { WEBPACK_SERVE: boolean }) => {
@@ -22,9 +25,10 @@ export default function webpackShared(path: string, handlers: IPlugin[]) {
 			PROD
 		}
 
-		let { plugins = [], ...config } = mergeAndConcat<ConfigPart, ConfigPart[]>(
-			defaultConfig(options),
-			...handlers.map((handler) => handler(options))
+		const parts = handlers.map((handler) => handler(options))
+
+		let { plugins = [], ...config } = mergeAndConcat(
+			...(parts as [ConfigPart, ...ConfigPart[]])
 		)
 
 		return {
@@ -34,40 +38,4 @@ export default function webpackShared(path: string, handlers: IPlugin[]) {
 	}
 }
 
-export function defaultConfig({ root, DEV, PROD }: IOptions): ConfigPart {
-	return {
-		mode: DEV ? 'development' : ('production' as ConfigPart['mode']),
-		output: {
-			filename: DEV ? '[name].js' : '[name].[chunkhash].js',
-			assetModuleFilename: (pathData) => {
-				if (pathData.filename?.match(/\.ts$/)) {
-					return DEV ? '[name].js' : '[name].[chunkhash].js'
-				} else {
-					return DEV ? '[name][ext]' : '[chunkhash][ext][query]'
-				}
-			},
-			path: join(root, 'dist'),
-			hashDigestLength: 5,
-			clean: PROD
-		},
-		resolve: {
-			extensions: ['.js']
-		},
-		stats: 'errors-warnings',
-		optimization: {
-			splitChunks: PROD && {
-				minSize: 0,
-				cacheGroups: {
-					vendors: {
-						test: /[\\/]node_modules[\\/]/,
-						name(module: any) {
-							return module.context.match(/node_modules[\\/]([^\/]*)/)[1]
-						},
-						chunks: 'all'
-					}
-				}
-			},
-			minimize: PROD
-		}
-	}
-}
+export default shared

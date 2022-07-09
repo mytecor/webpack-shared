@@ -5,7 +5,7 @@ Shared webpack config
 ## Install
 
 ```bash
-yarn add --dev webpack-shared
+pnpm i -D webpack-shared
 ```
 
 ## Usage
@@ -16,8 +16,15 @@ yarn add --dev webpack-shared
 import { join } from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import webpackShared, { css, react, typescript, devServer } from 'webpack-shared'
-import wrapPlugin from 'webpack-shared/wrapPlugin.js'
+import {
+	shared,
+	base,
+	css,
+	react,
+	typescript,
+	devServer,
+	plugin
+} from 'webpack-shared'
 
 // Custom part
 function entry() {
@@ -25,7 +32,7 @@ function entry() {
 }
 
 // Custom plugin
-const html = wrapPlugin(({ template, root }) => {
+const html = plugin(({ template, root }) => {
 	return {
 		plugins: [
 			new HtmlWebpackPlugin({
@@ -37,7 +44,8 @@ const html = wrapPlugin(({ template, root }) => {
 })
 
 // Config
-export default webpackShared(import.meta.url, [
+export default shared(import.meta.url, [
+	base(),
 	css(),
 	devServer(),
 	react(),
