@@ -5,13 +5,18 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
-		"declaration": true,
+		"jsx": "react-jsx",
 
 		"module": "ESNext",
 		"moduleResolution": "node",
 		"baseUrl": "./",
-		"rootDir": "./",
-		"outDir": "../dist"
+		"rootDir": "./src",
+		"outDir": "./dist",
+		"sourceMap": true
 	},
+	"ts-node": {
+		"esm": true
+	},
+	"include": ["src"],
 	"exclude": ["node_modules"]
 }

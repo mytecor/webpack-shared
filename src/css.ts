@@ -1,7 +1,7 @@
 import { plugin } from './plugin.js'
 import CssExtract from 'mini-css-extract-plugin'
 
-export const css = plugin(({ PROD }) => {
+export const css = plugin<void>(({ PROD }) => {
 	return {
 		module: {
 			rules: [

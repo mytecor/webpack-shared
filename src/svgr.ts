@@ -1,6 +1,6 @@
 import { plugin } from './plugin.js'
 
-export const svgr = plugin(() => {
+export const svgr = plugin<void>(() => {
 	return {
 		module: {
 			rules: [

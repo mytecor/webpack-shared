@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { Module } from 'webpack'
 import { plugin, ConfigPart } from './plugin.js'
 
-export const base = plugin(({ root, DEV, PROD }) => {
+export const base = plugin<void>(({ root, DEV, PROD }) => {
 	return {
 		mode: DEV ? 'development' : ('production' as ConfigPart['mode']),
 		output: {

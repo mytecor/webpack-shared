@@ -2,7 +2,7 @@ import { useReducer } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import Logo from './webpack_logo.svg'
-import Button from 'components/Button'
+import Button from 'comp/Button'
 
 import { $row, $logo } from './styles.css'
 
