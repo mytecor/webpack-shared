@@ -12,8 +12,27 @@ export const css = plugin<void>(({ PROD }) => {
 						{
 							loader: 'css-loader',
 							options: {
-								importLoaders: 1,
 								modules: {
+									mode: (path: string) => {
+										const [match, type] =
+											path.match(
+												/node_modules[\/\\].*?(\.modules?|\.icss)?\.css$/
+											) ?? []
+
+										if (match) {
+											if (type === '.icss') {
+												return 'icss'
+											}
+
+											if (type === '.module' || type === '.modules') {
+												return 'local'
+											}
+
+											return 'global'
+										}
+
+										return 'local'
+									},
 									localIdentName: '[local]-[hash:base64:3]',
 									namedExport: true,
 									exportLocalsConvention: (name: string) =>

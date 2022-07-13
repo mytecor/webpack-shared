@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import Logo from './webpack_logo.svg'
 import Button from 'comp/Button'
 
-import { $row, $logo } from './styles.css'
+import { $row, $logo } from './style.css'
 
 function App() {
 	let [value, increment] = useReducer((acc) => acc + 1, 0)

@@ -5,7 +5,7 @@ Shared webpack config
 ## Install
 
 ```bash
-pnpm i -D webpack-shared
+pnpm add -D webpack-shared
 ```
 
 ## Usage
