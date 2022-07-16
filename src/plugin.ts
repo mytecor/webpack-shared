@@ -15,13 +15,13 @@ export type ConfigPart = Omit<Configuration, 'plugins'> & {
 }
 
 export interface Plugin<Options extends Env = Env> {
-	(config: Options): ConfigPart
+	(config: Options): ConfigPart | Promise<ConfigPart>
 }
 
 export function plugin<Options>(handler: Plugin<Exclude<Options, void> & Env>) {
 	return (options: Options): Plugin<Env> => {
 		return (env) => {
-			return handler({ ...env, ...(options as Exclude<Options, void>) })
+			return handler({ ...env, ...(options as any) })
 		}
 	}
 }

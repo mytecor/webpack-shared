@@ -50,12 +50,11 @@ const config = shared(import.meta.url, [
 ])
 
 const serve = process.argv.includes('-s')
+const env = {
+	WEBPACK_SERVE: serve
+}
 
-const compiler = webpack(
-	config({
-		WEBPACK_SERVE: serve
-	})
-)
+const compiler = webpack(await config(env))
 
 if (serve) {
 	new Serve(compiler.options.devServer, compiler).start()

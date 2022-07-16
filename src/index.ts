@@ -15,7 +15,7 @@ export * from './dev-server.js'
 export function shared(path: string, handlers: [Plugin, ...Plugin[]]) {
 	const root = dirname(new URL(path).pathname)
 
-	return ({ WEBPACK_SERVE }: { WEBPACK_SERVE: boolean }) => {
+	return async ({ WEBPACK_SERVE }: { WEBPACK_SERVE: boolean }) => {
 		const PROD = !WEBPACK_SERVE
 		const DEV = !PROD
 
@@ -25,7 +25,11 @@ export function shared(path: string, handlers: [Plugin, ...Plugin[]]) {
 			PROD
 		}
 
-		const parts = handlers.map((handler) => handler(options))
+		const parts: ConfigPart[] = []
+
+		for (const handler of handlers) {
+			parts.push(await handler(options))
+		}
 
 		let { plugins = [], ...config } = mergeAndConcat(
 			...(parts as [ConfigPart, ...ConfigPart[]])
