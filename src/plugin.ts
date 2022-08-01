@@ -1,9 +1,10 @@
 import { Compiler, Configuration, WebpackPluginInstance } from 'webpack'
 
 export interface Env {
+	root: string
 	DEV: boolean
 	PROD: boolean
-	root: string
+	WEBPACK_SERVE: boolean
 }
 
 export type ConfigPart = Omit<Configuration, 'plugins'> & {

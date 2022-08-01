@@ -2,7 +2,7 @@ import { dirname } from 'path'
 import { mergeAndConcat } from 'merge-anything'
 import { Configuration } from 'webpack'
 
-import { ConfigPart, Plugin } from './plugin.js'
+import { ConfigPart, Env, Plugin } from './plugin.js'
 
 export * from './plugin.js'
 export * from './base.js'
@@ -19,25 +19,26 @@ export function shared(path: string, handlers: [Plugin, ...Plugin[]]) {
 		const PROD = !WEBPACK_SERVE
 		const DEV = !PROD
 
-		const options = {
+		const env: Env = {
 			root,
 			DEV,
-			PROD
+			PROD,
+			WEBPACK_SERVE,
 		}
 
 		const parts: ConfigPart[] = []
 
 		for (const handler of handlers) {
-			parts.push(await handler(options))
+			parts.push(await handler(env))
 		}
 
 		let { plugins = [], ...config } = mergeAndConcat(
-			...(parts as [ConfigPart, ...ConfigPart[]])
+			...(parts as [ConfigPart, ...ConfigPart[]]),
 		)
 
 		return {
 			plugins: plugins.filter(Boolean),
-			...config
+			...config,
 		} as Configuration
 	}
 }
