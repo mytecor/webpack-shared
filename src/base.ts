@@ -9,17 +9,17 @@ export const base = plugin<void>(({ root, DEV, PROD }) => {
 			filename: DEV ? '[name].js' : '[name].[chunkhash].js',
 			assetModuleFilename: (pathData) => {
 				if (pathData.filename?.match(/\.ts$/)) {
-					return DEV ? '[name].js' : '[name].[chunkhash].js'
+					return DEV ? '[name].js' : '[name].[hash].js'
 				} else {
-					return DEV ? '[name][ext]' : '[chunkhash][ext][query]'
+					return DEV ? '[name][ext]' : '[hash][ext][query]'
 				}
 			},
 			path: join(root, 'dist'),
 			hashDigestLength: 5,
-			clean: PROD
+			clean: PROD,
 		},
 		resolve: {
-			extensions: ['.js']
+			extensions: ['.js'],
 		},
 		stats: 'errors-warnings',
 		optimization: {
@@ -31,11 +31,11 @@ export const base = plugin<void>(({ root, DEV, PROD }) => {
 						name(module: Module) {
 							return module.context?.match(/node_modules[\\/]([^\/]*)/)?.[1]
 						},
-						chunks: 'all'
-					}
-				}
+						chunks: 'all',
+					},
+				},
 			},
-			minimize: PROD
-		}
+			minimize: PROD,
+		},
 	}
 })
